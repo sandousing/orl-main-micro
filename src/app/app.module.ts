@@ -7,10 +7,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ContentModule } from 'src/test-content/content.module';
 import { ContentService } from 'src/test-content/content.service';
 import { ContentController } from 'src/test-content/content.controller';
-import { AuthModule } from 'src/auth/auth.module';
-import { dbconfig } from 'src/shared/config/database.config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DatabaseConnectionService } from 'src/shared/orm/database-connection.service';
 import { AppService } from './app.service';
 import { ApplicationLoggerModule } from '../logger/logger.module';
 import { AppController } from './app.controller';
@@ -22,15 +18,9 @@ import { AppController } from './app.controller';
     controllers: [AppController, ContentController],
     imports: [
         ApplicationLoggerModule,
-        AuthModule,
         ContentModule,
         ConfigModule.forRoot({
             isGlobal: true,
-            load: [dbconfig],
-        }),
-        TypeOrmModule.forRootAsync({
-            imports: [ConfigModule],
-            useClass: DatabaseConnectionService,
         }),
     ],
     providers: [
