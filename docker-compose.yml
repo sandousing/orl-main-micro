@@ -1,0 +1,71 @@
+#docker-compose build
+#docker-compose up
+#docker-compose down -v --remove-orphans
+
+version: '3.7'
+
+services:
+    templatebackend_housing:
+        container_name: templatebackend_housing
+        ports:
+            - 3001:3001
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        networks:
+            - backendnetwork
+        depends_on:
+            - redis
+            - mariadb
+        env_file:
+            - .env
+        volumes:
+            - type: bind
+              source: ./src
+              target: /app/src
+    redis:
+        container_name: redis_container
+        image: redis:5
+        volumes:
+            - type: volume
+              source: redis
+              target: /data
+        networks:
+            - backendnetwork
+    mariadb:
+        container_name: mariadb
+        image: 'mariadb:10.3.16'
+        restart: always
+        ports:
+            - 3306:3306
+        environment:
+            - MYSQL_USER=root
+            - MYSQL_PASSWORD=root
+            - MYSQL_DATABASE=test
+            - MYSQL_ROOT_PASSWORD=root
+        networks:
+            - backendnetwork
+    nginx:
+        image: nginx:mainline-alpine
+        container_name: nginx
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+        networks:
+            - backendnetwork
+        ports:
+            - 80:80
+        depends_on:
+            - templatebackend_housing
+    adminer:
+        image: adminer
+        restart: always
+        networks:
+            - backendnetwork
+        ports:
+            - 9090:8080
+
+networks:
+    backendnetwork:
+
+volumes:
+    redis:

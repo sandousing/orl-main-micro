@@ -1,0 +1,23 @@
+GET http://localhost/api/app/authhealthcheck
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1lQHNhbmRlZXAuY29tIiwic3ViIjoxLCJpYXQiOjE2MDc2NzIyODQsImV4cCI6MTYwNzY3MjM0NH0.BAmJY_4MmtKO_MgnZAEzkDI9TEQIkcXx9QCsdNYOyHI
+
+###
+# register user
+POST http://localhost/api/user/signup
+Content-Type: application/json
+
+{
+    "name": "sandeep",
+    "email": "me@sandeep.com",
+    "password":"hello"
+}
+
+###
+# register user
+POST http://localhost/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "me@sandeep.com",
+    "password":"hello"
+}
