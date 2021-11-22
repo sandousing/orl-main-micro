@@ -4,12 +4,29 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AppModule } from './app/app.module';
 import { ApplicationLoggerService } from './logger/logger.service';
+import { Transport } from '@nestjs/microservices';
+
+/**
+ * Creating microservice options object for TCP (microservice)
+*/
+const microserviceOptions = {
+    transport: Transport.TCP,
+    options:{
+        host: process.env.TRANSPORT_HOST,
+        port: process.env.TRANSPORT_PORT
+    }
+}
 
 async function bootstrap() {
     /**
      * Initializing the AppModule with default express framework
      */
     const app = await NestFactory.create(AppModule);
+
+    /**
+     * Initializing the AppModule with default `express framework (microservice)
+    */
+    const microServiceApp = await NestFactory.createMicroservice(AppModule,microserviceOptions)
 
     /**
      * Initialize the config service
@@ -53,6 +70,13 @@ async function bootstrap() {
     const port = configService.get('APP_PORT');
     await app.listen(port, () => {
         Logger.log(`Service started at ${port} port`);
+    });
+
+    /**
+     * Listen function for microservice (microservice)
+    */
+    microServiceApp.listen(() => {
+        Logger.log(`Microservice is listening ...`);
     });
 }
 bootstrap();
