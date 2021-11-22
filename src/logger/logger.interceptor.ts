@@ -6,7 +6,7 @@ import { ApplicationLoggerService } from './logger.service';
 @Injectable()
 export class LoggerInterceptor implements NestInterceptor {
     constructor(private applicationLogger: ApplicationLoggerService) {
-        this.applicationLogger.setContext('LoggerInterceptor');
+        this.applicationLogger.log('LoggerInterceptor');
     }
 
     intercept(context: ExecutionContext, call$: CallHandler<any>): Observable<any> {
