@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ClientProxyFactory, Transport, ClientProxy } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
+import { orchestrators } from 'src/config';
+import { getClientConfig } from 'src/utils/client';
 @Injectable()
 export class AppService {
     /**
@@ -9,24 +11,11 @@ export class AppService {
     private pingClient: ClientProxy;
 
     constructor() {
-        this.client = ClientProxyFactory.create({
-            transport: Transport.TCP,
-            options: {
-                host: process.env.TRANSPORT_HOST,
-                port: Number(process.env.TRANSPORT_PORT),
-            },
-        });
-
         /**
-         * Creating client for the 'ping' microservice
+         * Get TCP client config for orchestrators as independent microservice
          */
-        this.pingClient = ClientProxyFactory.create({
-            transport: Transport.TCP,
-            options: {
-                host: process.env.TRANSPORT_HOST,
-                port: Number(process.env.TRANSPORT_MICROSERVICE_PORT),
-            },
-        });
+        this.client = getClientConfig({ type: orchestrators.assets });
+        this.pingClient = getClientConfig({ type: orchestrators.accounts });
     }
 
     getHello(): string {

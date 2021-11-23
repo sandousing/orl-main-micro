@@ -12,8 +12,8 @@ import { Transport } from '@nestjs/microservices';
 const microserviceOptions = {
     transport: Transport.TCP,
     options: {
-        host: process.env.TRANSPORT_HOST,
-        port: process.env.TRANSPORT_PORT,
+        host: process.env.ASSETS_HOST,
+        port: process.env.ASSETS_PORT,
     },
 };
 
