@@ -22,7 +22,7 @@ async function bootstrap() {
           clientId: 'orl-layer'
         },
         consumer: {
-          groupId: 'random',
+          groupId: 'random', // based on which orchestrator is using this, consumer groupId can be changed
         },
       },
       transport: Transport.KAFKA
