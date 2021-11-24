@@ -35,6 +35,5 @@ export function getClientConfig({ type }): ClientProxy {
             });
             break;
     }
-    console.log(client);
     return client;
 }
