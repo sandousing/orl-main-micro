@@ -27,9 +27,7 @@ async function bootstrap() {
       },
       transport: Transport.KAFKA
     });
-    kafkaApp.listen(() => {
-      Logger.log('Kafka is running...');
-    });
+    kafkaApp.listen();
 
     /**
      * Initialize the config service
