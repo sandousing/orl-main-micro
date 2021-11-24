@@ -1,13 +1,49 @@
-import { Controller, Get } from '@nestjs/common';
+/* eslint-disable class-methods-use-this */
+import { Controller, Get, Logger } from '@nestjs/common';
+import { Client, ClientKafka, MessagePattern, Payload, Transport } from '@nestjs/microservices';
 
 import { AppService } from './app.service';
 
 @Controller('app')
 export class AppController {
-    constructor(private readonly appService: AppService) {}
+  @Client({
+    options: {
+      client: {
+        brokers: [process.env.KAFKA_BROKERS],
+        clientId: 'orl-layer',
+      },
+      consumer: {
+        groupId: 'random'
+      }
+    },
+    transport: Transport.KAFKA
+  })
+  client: ClientKafka;
 
-    @Get('healthcheck')
-    getHello(): string {
-        return this.appService.getHello();
-    }
+  // eslint-disable-next-line no-empty-function
+  constructor(private readonly appService: AppService) {}
+
+  async onModuleInit() {
+    /* Need to subscribe to topic 
+     * so that we can get the response from kafka microservice 
+    */
+    this.client.subscribeToResponseOf(process.env.KAFKA_TOPIC);
+    await this.client.connect();
+  }
+
+  @Get()
+  getRequest() {
+    return this.client.send(process.env.KAFKA_TOPIC, 'Hello Kafka'); // args - topic, message
+  }
+    
+  @Get('healthcheck')
+  getHello(): string {
+      return this.appService.getHello();
+  }
+
+  @MessagePattern(process.env.KAFKA_TOPIC) // Our topic name
+  getMessage(@Payload() message) {
+    Logger.log(message.value);
+    return 'Hello World';
+  }
 }

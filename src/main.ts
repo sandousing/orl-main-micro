@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { ApplicationLoggerService } from './logger/logger.service';
 
@@ -10,6 +11,25 @@ async function bootstrap() {
      * Initializing the AppModule with default express framework
      */
     const app = await NestFactory.create(AppModule);
+
+    /**
+     * Initializing the Kafka Module
+     */
+     const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+      options: {
+        client: {
+          brokers: [process.env.KAFKA_BROKERS],
+          clientId: 'orl-layer'
+        },
+        consumer: {
+          groupId: 'random',
+        },
+      },
+      transport: Transport.KAFKA
+    });
+    kafkaApp.listen(() => {
+      Logger.log('Kafka is running...');
+    });
 
     /**
      * Initialize the config service
