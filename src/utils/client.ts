@@ -4,7 +4,7 @@ import { orchestrators } from 'src/config';
 /**
  * Get TCP client configuration for orchestrators as independent microservice client
  */
-export function getClientConfig({ type }): ClientProxy {
+export function getOrchestratorClient({ type }: { type: number }): ClientProxy {
     let client: ClientProxy;
     switch (type) {
         case orchestrators.assets:

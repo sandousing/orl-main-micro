@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { orchestrators } from 'src/config';
-import { getClientConfig } from 'src/utils/client';
+import { getOrchestratorClient } from 'src/utils/client';
 @Injectable()
 export class AppService {
     /**
@@ -14,8 +14,8 @@ export class AppService {
         /**
          * Get TCP client config for orchestrators as independent microservice
          */
-        this.client = getClientConfig({ type: orchestrators.assets });
-        this.pingClient = getClientConfig({ type: orchestrators.accounts });
+        this.client = getOrchestratorClient({ type: orchestrators.assets });
+        this.pingClient = getOrchestratorClient({ type: orchestrators.accounts });
     }
 
     getHello(): string {
