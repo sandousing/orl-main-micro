@@ -8,7 +8,7 @@ import { Content } from './models/content';
 export class ContentResolver {
     constructor(private readonly contentService: ContentService) {}
 
-    @Query(() => Content)
+    @Query(() => Content, { name: 'content', nullable: true })
     getContent(@Args() getContentArgs: GetContentArgs): Content {
         return this.contentService.getContent(getContentArgs.id);
     }

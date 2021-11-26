@@ -2,10 +2,10 @@ import { Field, Int, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class Content {
-    @Field()
+    @Field(() => Int)
     id: number;
 
-    @Field(() => Int)
+    @Field()
     name: string;
 
     @Field({ nullable: true })
