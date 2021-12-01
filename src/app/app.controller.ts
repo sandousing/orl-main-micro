@@ -31,16 +31,18 @@ export class AppController {
     await this.client.connect();
   }
 
-  @Get()
-  getRequest() {
-    return this.client.send('orl-layer', 'Hello Kafka'); // args - topic, message
-  }
-    
   @Get('healthcheck')
   getHello(): string {
       return this.appService.getHello();
   }
 
+  // Producing event to Kafka
+  @Get('produce')
+  produceEvent() {
+    return this.client.send('orl-layer', 'Producing...'); // args - topic, message
+  }
+
+  // Consuming events from Kafka
   @MessagePattern('orl-layer') // Our topic name
   getMessage(@Payload() message) {
     Logger.log(message.value);
