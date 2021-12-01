@@ -15,19 +15,21 @@ async function bootstrap() {
     /**
      * Initializing the Kafka Module
      */
-     const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-      options: {
-        client: {
-          brokers: [process.env.KAFKA_BROKERS],
-          clientId: 'orl-layer'
+    const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+        options: {
+            client: {
+                brokers: [process.env.KAFKA_BROKERS],
+                clientId: 'orl-layer',
+            },
+            consumer: {
+                groupId: 'random', // based on which orchestrator is using this, consumer groupId can be changed
+            },
         },
-        consumer: {
-          groupId: 'random', // based on which orchestrator is using this, consumer groupId can be changed
-        },
-      },
-      transport: Transport.KAFKA
+        transport: Transport.KAFKA,
     });
-    kafkaApp.listen();
+    kafkaApp.listen(() => {
+        Logger.log(`Kafka is listening ...`);
+    });
 
     /**
      * Initialize the config service
