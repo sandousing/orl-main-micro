@@ -18,7 +18,7 @@ async function bootstrap() {
     const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
         options: {
             client: {
-                brokers: [process.env.KAFKA_BROKERS],
+                brokers: ['localhost:9092'],
                 clientId: 'orl-layer',
             },
             consumer: {

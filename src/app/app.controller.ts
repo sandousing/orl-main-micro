@@ -9,7 +9,7 @@ export class AppController {
   @Client({
     options: {
       client: {
-        brokers: [process.env.KAFKA_BROKERS],
+        brokers: ['localhost:9092'],
         clientId: 'orl-layer',
       },
       consumer: {
@@ -27,13 +27,13 @@ export class AppController {
     /* Need to subscribe to topic 
      * so that we can get the response from kafka microservice 
     */
-    this.client.subscribeToResponseOf(process.env.KAFKA_TOPIC);
+    this.client.subscribeToResponseOf('orl-layer');
     await this.client.connect();
   }
 
   @Get()
   getRequest() {
-    return this.client.send(process.env.KAFKA_TOPIC, 'Hello Kafka'); // args - topic, message
+    return this.client.send('orl-layer', 'Hello Kafka'); // args - topic, message
   }
     
   @Get('healthcheck')
@@ -41,7 +41,7 @@ export class AppController {
       return this.appService.getHello();
   }
 
-  @MessagePattern(process.env.KAFKA_TOPIC) // Our topic name
+  @MessagePattern('orl-layer') // Our topic name
   getMessage(@Payload() message) {
     Logger.log(message.value);
     return 'Hello World';
