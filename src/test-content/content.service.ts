@@ -28,14 +28,23 @@ export class ContentService {
         return 'All the content ';
     }
 
+    /**
+     *  Get Content by id (args: id)
+     */
     getContent(id: number): Content {
         return this.contents.find(content => content.id === id);
     }
 
+    /**
+     *  Get All Contents
+     */
     getContents(): Content[] {
         return this.contents;
     }
 
+    /**
+     *  Create a new Content(args: name, active?)
+     */
     createContent(createContentData: CreateContentInput): Content {
         const { name, active } = createContentData;
         const newContent = {
@@ -47,12 +56,18 @@ export class ContentService {
         return newContent;
     }
 
+    /**
+     *  Update an existing Content(args: id, name, active?)
+     */
     updateContent(updateContentData: UpdateContentInput): Content {
         const requiredContent = this.contents.find(content => content.id === updateContentData.id);
         Object.assign(requiredContent, updateContentData);
         return requiredContent;
     }
 
+    /**
+     *  Delete an existing Content(args: id)
+     */
     deleteContent(deleteContentData: DeleteContentInput): Content {
         const contentIndex = this.contents.findIndex(content => content.id === deleteContentData.id);
         let requiredContent = null;
