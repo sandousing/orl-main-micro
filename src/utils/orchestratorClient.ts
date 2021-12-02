@@ -1,5 +1,5 @@
 import { ClientProxyFactory, Transport, ClientProxy } from '@nestjs/microservices';
-import { orchestrators } from 'src/config';
+import { orchestrators } from 'src/shared/config/orchestrator.config';
 
 /**
  * Get TCP client configuration for orchestrators as independent microservice client

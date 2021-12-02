@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 
-import { orchestrators } from 'src/config';
-import { getOrchestratorClient } from 'src/utils/client';
+import { orchestrators } from 'src/shared/config/orchestrator.config';
+import { getOrchestratorClient } from 'src/utils/orchestratorClient';
 
 @Injectable()
 export class AppService {
