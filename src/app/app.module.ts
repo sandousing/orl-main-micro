@@ -1,7 +1,5 @@
 import { Module, MiddlewareConsumer } from '@nestjs/common';
-import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
-import { HttpErrorFilter } from 'src/shared/filter/http-error.util';
-import { LoggerInterceptor } from 'src/logger/logger.interceptor';
+
 import { ReqestMiddleware } from 'src/shared/middlewares';
 import { ConfigModule } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
@@ -30,14 +28,14 @@ import { AppController } from './app.controller';
     providers: [
         AppService,
         ContentService,
-        {
-            provide: APP_FILTER,
-            useClass: HttpErrorFilter,
-        },
-        {
-            provide: APP_INTERCEPTOR,
-            useClass: LoggerInterceptor,
-        },
+        // {
+        //     provide: APP_FILTER,
+        //     useClass: HttpErrorFilter,
+        // },
+        // {
+        //     provide: APP_INTERCEPTOR,
+        //     useClass: LoggerInterceptor,
+        // },
     ],
 })
 export class AppModule {

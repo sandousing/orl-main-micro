@@ -27,22 +27,6 @@ module.exports = {
         'sort-keys-fix/sort-keys-fix': 'error',
         '@typescript-eslint/camelcase': 'off',
         'import/no-extraneous-dependencies': 'off',
-        'sort-class-members/sort-class-members': [
-            'error',
-            {
-                order: [
-                    '[static-properties]',
-                    '[static-methods]',
-                    '[properties]',
-                    '[conventional-private-properties]',
-                    'constructor',
-                    '[conventional-private-methods]',
-                    '[methods]',
-                ],
-                accessorPairPositioning: 'getThenSet',
-                sort: 'alphabetical',
-            },
-        ],
         '@typescript-eslint/no-unused-vars': 'off',
         'unused-imports/no-unused-imports-ts': 2,
         'unused-imports/no-unused-vars-ts': 2,

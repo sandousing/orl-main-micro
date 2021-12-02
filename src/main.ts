@@ -6,6 +6,17 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { ApplicationLoggerService } from './logger/logger.service';
 
+/**
+ * Creating microservice options object for TCP (microservice)
+ */
+const microserviceOptions = {
+    options: {
+        host: process.env.TRANSPORT_HOST,
+        port: process.env.TRANSPORT_PORT,
+    },
+    transport: Transport.TCP,
+};
+
 async function bootstrap() {
     /**
      * Initializing the AppModule with default express framework
@@ -30,6 +41,10 @@ async function bootstrap() {
     kafkaApp.listen(() => {
         Logger.log(`Kafka is listening ...`);
     });
+    /*
+     * Initializing the AppModule with default `express framework (microservice)
+     */
+    const microServiceApp = await NestFactory.createMicroservice(AppModule, microserviceOptions);
 
     /**
      * Initialize the config service
@@ -73,6 +88,13 @@ async function bootstrap() {
     const port = configService.get('APP_PORT');
     await app.listen(port, () => {
         Logger.log(`Service started at ${port} port`);
+    });
+
+    /**
+     * Listen function for microservice (microservice)
+     */
+    microServiceApp.listen(() => {
+        Logger.log(`Microservice is listening ...`);
     });
 }
 bootstrap();
