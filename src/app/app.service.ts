@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ClientProxyFactory, Transport, ClientProxy } from '@nestjs/microservices';
+import { ClientProxy } from '@nestjs/microservices';
+
+import { orchestrators } from 'src/config';
+import { getOrchestratorClient } from 'src/utils/client';
 
 @Injectable()
 export class AppService {
@@ -8,14 +11,14 @@ export class AppService {
      */
     private client: ClientProxy;
 
+    private pingClient: ClientProxy;
+
     constructor() {
-        this.client = ClientProxyFactory.create({
-            options: {
-                host: process.env.TRANSPORT_HOST,
-                port: Number(process.env.TRANSPORT_PORT),
-            },
-            transport: Transport.TCP,
-        });
+        /**
+         * Get TCP client config for orchestrators as independent microservice
+         */
+        this.client = getOrchestratorClient({ type: orchestrators.assets });
+        this.pingClient = getOrchestratorClient({ type: orchestrators.accounts });
     }
 
     getHello(): string {
@@ -35,4 +38,26 @@ export class AppService {
     getHealthCheckPatternServer(): any {
         return this.client.send<string>('healthcheckpattern', '');
     }
+
+    /**
+     *  Receiving the data from TCP message pattern from microservice (server)
+     */
+    getMicroservicePing(): any {
+        return this.client.send<string>('microservicePing', '');
+    }
+
+    /**
+     *  Receiving the data from TCP message pattern from another microservice (microservice)
+     */
+    getMicroservicePingFromMicroservice({ pattern }): any {
+        return this.pingClient.send<string>(`${pattern}`, '');
+    }
+
+    /**
+     *  Dummy Ping function for TCP message pattern (microservice to microservice)
+     *  ! To be written in 'ping' microservice service
+    sendMicroservicePingToMicroservice(): string {
+        return 'Hello from other microservice!';
+    }
+    */
 }

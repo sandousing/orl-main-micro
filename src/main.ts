@@ -11,8 +11,8 @@ import { ApplicationLoggerService } from './logger/logger.service';
  */
 const microserviceOptions = {
     options: {
-        host: process.env.TRANSPORT_HOST,
-        port: process.env.TRANSPORT_PORT,
+        host: process.env.ASSETS_HOST,
+        port: process.env.ASSETS_PORT,
     },
     transport: Transport.TCP,
 };
