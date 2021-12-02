@@ -9,6 +9,6 @@ export class UserService {
         @InjectRepository(User)
         private applicationLogger: ApplicationLoggerService,
     ) {
-        this.applicationLogger.setContext('UserService');
+        this.applicationLogger.log('UserService');
     }
 }

@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
+import { ContentResolver } from './content-resolver';
 import { ContentService } from './content.service';
 
 @Module({
-    exports: [ContentService],
-    providers: [ContentService],
+    providers: [ContentResolver, ContentService],
 })
 export class ContentModule {}

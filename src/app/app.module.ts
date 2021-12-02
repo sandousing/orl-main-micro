@@ -4,6 +4,7 @@ import { HttpErrorFilter } from 'src/shared/filter/http-error.util';
 import { LoggerInterceptor } from 'src/logger/logger.interceptor';
 import { ReqestMiddleware } from 'src/shared/middlewares';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 import { ContentModule } from 'src/test-content/content.module';
 import { ContentService } from 'src/test-content/content.service';
 import { ContentController } from 'src/test-content/content.controller';
@@ -21,6 +22,9 @@ import { AppController } from './app.controller';
         ContentModule,
         ConfigModule.forRoot({
             isGlobal: true,
+        }),
+        GraphQLModule.forRoot({
+            autoSchemaFile: true,
         }),
     ],
     providers: [

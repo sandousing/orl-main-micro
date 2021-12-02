@@ -11,7 +11,7 @@ export class ContentController {
     private contentService: ContentService;
 
     constructor(private appLogger: ApplicationLoggerService) {
-        this.appLogger.setContext('ContenService');
+        this.appLogger.log('ContenService');
     }
 
     @Get('/fetch')
