@@ -87,6 +87,13 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
+## Setting up Kafka
+
+1. If not already setup, Download Kafka, start the environment and create a topic. If already setup, just start the environment. (Refer https://kafka.apache.org/quickstart)
+2. Copy KAFKA_BROKERS and KAFKA_TOPIC variables from .env_sample file to .env file and add relevant values
+3. Uncomment the code in section: 'Initializing the Kafka Module' in main.ts file
+4. Uncomment onModuleInit and produceEvent functions and @Client section in app.controller.ts file
+
 ## Stay in touch
 
 -   Author - [Sandeep Ghosh](http://sandeepghosh.com)

@@ -23,6 +23,7 @@ import { AppController } from './app.controller';
         }),
         GraphQLModule.forRoot({
             autoSchemaFile: true,
+            path: process.env.GRAPHQL_PATH,
         }),
     ],
     providers: [
