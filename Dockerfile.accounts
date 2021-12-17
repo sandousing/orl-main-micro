@@ -13,6 +13,7 @@ RUN yarn install
 ADD . /app
 
 EXPOSE 3001
+EXPOSE 8878
 
 #start the service in dev mode
 CMD ["yarn","run","start:dev"]
