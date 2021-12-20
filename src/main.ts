@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { Transport } from '@nestjs/microservices';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { ApplicationLoggerService } from './logger/logger.service';
 
@@ -26,21 +26,21 @@ async function bootstrap() {
     /**
      * Initializing the Kafka Module
      */
-    // const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    //     options: {
-    //         client: {
-    //             brokers: ['localhost:9092'],
-    //             clientId: 'orl-layer',
-    //         },
-    //         consumer: {
-    //             groupId: 'random', // based on which orchestrator is using this, consumer groupId can be changed
-    //         },
-    //     },
-    //     transport: Transport.KAFKA,
-    // });
-    // kafkaApp.listen(() => {
-    //     Logger.log(`Kafka is listening ...`);
-    // });
+    const kafkaApp = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
+        options: {
+            client: {
+                brokers: ['kafka:9092'],
+                clientId: 'orl-layer',
+            },
+            consumer: {
+                groupId: 'random', // based on which orchestrator is using this, consumer groupId can be changed
+            },
+        },
+        transport: Transport.KAFKA,
+    });
+    kafkaApp.listen(() => {
+        Logger.log(`Kafka is listening ...`);
+    });
     /*
      * Initializing the AppModule with default `express framework (microservice)
      */
