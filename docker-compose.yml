@@ -9,7 +9,6 @@ services:
         container_name: assets_orchestrator
         ports:
             - 3001:3001
-            - 8877:8877
         build:
             context: .
             dockerfile: Dockerfile.assets
@@ -22,7 +21,6 @@ services:
         container_name: accounts_orchestrator
         ports:
             - 3002:3002
-            - 8878:8878
         build:
             context: ../../orl-main-micro-micro-service
             dockerfile: Dockerfile
