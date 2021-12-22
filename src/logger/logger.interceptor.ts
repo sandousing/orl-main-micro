@@ -11,9 +11,10 @@ export class LoggerInterceptor implements NestInterceptor {
 
     intercept(context: ExecutionContext, call$: CallHandler<any>): Observable<any> {
         const now = Date.now();
-        const req = context.switchToHttp().getRequest();
+        let req = context.switchToHttp().getRequest();
+        req = req || {};
         const { method } = req;
-        let { body } = req;
+        let { body = {} } = req;
         body = JSON.stringify(body);
         const { url } = req;
 
