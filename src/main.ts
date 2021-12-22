@@ -38,9 +38,6 @@ async function bootstrap() {
         },
         transport: Transport.KAFKA,
     });
-    kafkaApp.listen(() => {
-        Logger.log(`Kafka is listening ...`);
-    });
     /*
      * Initializing the AppModule with default `express framework (microservice)
      */
@@ -95,6 +92,9 @@ async function bootstrap() {
      */
     microServiceApp.listen(() => {
         Logger.log(`Microservice is listening ...`);
+    });
+    kafkaApp.listen(() => {
+        Logger.log(`Kafka is listening ...`);
     });
 }
 bootstrap();

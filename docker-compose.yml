@@ -12,6 +12,8 @@ services:
         build:
             context: .
             dockerfile: Dockerfile.assets
+        links:
+            - kafka
         networks:
             - backendnetwork
         env_file:
@@ -42,6 +44,7 @@ services:
     kafka:
         image: bitnami/kafka:latest
         container_name: kafka
+        hostname: kafka
         networks:
             - backendnetwork
         ports:
@@ -52,6 +55,7 @@ services:
             - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
             - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
             - ALLOW_PLAINTEXT_LISTENER=yes
+            - KAFKA_ADVERTISED_HOST_NAME=kafka
         depends_on:
             - zookeeper
 
