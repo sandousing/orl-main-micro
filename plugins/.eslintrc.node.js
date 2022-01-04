@@ -30,5 +30,6 @@ module.exports = {
         '@typescript-eslint/no-unused-vars': 'off',
         'unused-imports/no-unused-imports-ts': 2,
         'unused-imports/no-unused-vars-ts': 2,
+        "import/no-named-as-default": 0
     },
 };

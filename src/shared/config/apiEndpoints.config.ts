@@ -194,6 +194,14 @@ export const apiMap = {
                 url: '/app/v1/reset-password',
             },
         ],
+        ptPetra: {
+            projectListingApi : {
+                description: '',
+                domain: 'proptiger.com',
+                method: 'GET',
+                url: '/app/v2/project-listing?selector'
+            },
+        },
         synapse: [
             {
                 method: 'GET',
@@ -203,6 +211,6 @@ export const apiMap = {
                 method: 'GET',
                 url: '/synapse/v1/agent-property-feedback',
             },
-        ],
+        ]
     },
 };

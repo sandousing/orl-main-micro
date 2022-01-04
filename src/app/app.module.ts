@@ -6,6 +6,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ContentModule } from 'src/test-content/content.module';
 import { ContentService } from 'src/test-content/content.service';
 import { ContentController } from 'src/test-content/content.controller';
+import { PtSearchModule } from 'src/pt/ptsearch.module';
+import { PtSearchService } from 'src/pt/ptsearch.service';
 import { AppService } from './app.service';
 import { ApplicationLoggerModule } from '../logger/logger.module';
 import { AppController } from './app.controller';
@@ -18,6 +20,7 @@ import { AppController } from './app.controller';
     imports: [
         ApplicationLoggerModule,
         ContentModule,
+        PtSearchModule,
         ConfigModule.forRoot({
             isGlobal: true,
         }),
@@ -29,6 +32,7 @@ import { AppController } from './app.controller';
     providers: [
         AppService,
         ContentService,
+        PtSearchService
         // {
         //     provide: APP_FILTER,
         //     useClass: HttpErrorFilter,
