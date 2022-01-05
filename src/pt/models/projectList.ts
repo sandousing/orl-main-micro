@@ -231,10 +231,10 @@ class Locality {
 
 @ObjectType()
 export class Properties {
-    @Field()
+    @Field({ nullable: true })
     propertyId: number;
 
-    @Field()
+    @Field({ nullable: true })
     projectId: number;
 
     @Field()
@@ -470,7 +470,7 @@ export class Project {
     projectId: number;
 
     // TBD
-    @Field(() => [Properties])
+    @Field(() => [Properties], { nullable: true })
     properties: [Properties];
 
     @Field(() => [String])
