@@ -2,110 +2,110 @@ import { Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 class state {
-    @Field()
+    @Field({ nullable: true })
     stateId: number;
 
-    @Field()
+    @Field({ nullable: true })
     countryId: number;
 
     // TBD
-    @Field()
+    @Field({ nullable: true })
     country: string;
 }
 
 @ObjectType()
 class City {
-    @Field()
+    @Field({ nullable: true })
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
     authorized: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     label: string;
 
-    @Field()
+    @Field({ nullable: true })
     status: string;
 
-    @Field()
+    @Field({ nullable: true })
     northEastLatitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     northEastLongitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     southWestLatitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     southWestLongitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     centerLatitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     centerLongitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     isServing: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isServingResale: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     overviewUrl: string;
 
-    @Field()
+    @Field({ nullable: true })
     localityMaxSafetyScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     localityMinSafetyScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     localityMaxLivabilityScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     localityMinLivabilityScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     isTierOneCity: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     showPolygon: boolean;
 
-    @Field(() => [Number])
+    @Field(() => [Number], { nullable: true })
     geo: number[];
 
-    @Field()
+    @Field({ nullable: true })
     state: state;
 }
 
 @ObjectType()
 class MainImage {
-    @Field()
+    @Field({ nullable: true })
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
     imageTypeId: number;
 
-    @Field()
+    @Field({ nullable: true })
     objectId: number;
 
-    @Field()
+    @Field({ nullable: true })
     statusId: number;
 
-    @Field()
+    @Field({ nullable: true })
     sizeInBytes: number;
 
-    @Field()
+    @Field({ nullable: true })
     width: number;
 
-    @Field()
+    @Field({ nullable: true })
     height: number;
 
-    @Field()
+    @Field({ nullable: true })
     activeStatus: number;
 
-    @Field()
+    @Field({ nullable: true })
     active: boolean;
 
     @Field({ nullable: true })
@@ -117,115 +117,115 @@ class MainImage {
 
 @ObjectType()
 class Builder {
-    @Field()
+    @Field({ nullable: true })
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
     name: string;
 
-    @Field()
+    @Field({ nullable: true })
     displayName: string;
 
-    @Field()
+    @Field({ nullable: true })
     url: string;
 
-    @Field()
+    @Field({ nullable: true })
     isBuilderListed: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     averageDelay: number;
 }
 
 @ObjectType()
 class Suburb {
-    @Field()
+    @Field({ nullable: true })
     id: number;
 
-    @Field()
+    @Field({ nullable: true })
     cityId: number;
 
-    @Field()
+    @Field({ nullable: true })
     label: string;
 
-    @Field()
+    @Field({ nullable: true })
     status: string;
 
-    @Field()
+    @Field({ nullable: true })
     city: City;
 
-    @Field()
+    @Field({ nullable: true })
     priority: number;
 
-    @Field()
+    @Field({ nullable: true })
     overviewUrl: string;
 
-    @Field()
+    @Field({ nullable: true })
     isDescriptionVerified: boolean;
 }
 
 @ObjectType()
 class Locality {
-    @Field()
+    @Field({ nullable: true })
     localityId: number;
 
-    @Field()
+    @Field({ nullable: true })
     authorized: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     cityId: number;
 
-    @Field()
+    @Field({ nullable: true })
     label: string;
 
-    @Field()
+    @Field({ nullable: true })
     localityServing: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     url: string;
 
-    @Field()
+    @Field({ nullable: true })
     status: string;
 
-    @Field()
+    @Field({ nullable: true })
     priority: number;
 
-    @Field()
+    @Field({ nullable: true })
     overviewUrl: string;
 
-    @Field()
+    @Field({ nullable: true })
     relevanceScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     projectMaxLivabilityScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     projectMinLivabilityScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     isDescriptionVerified: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     localityHeroshotImageUrl: string;
 
-    @Field()
+    @Field({ nullable: true })
     minAffordablePrice: number;
 
-    @Field()
+    @Field({ nullable: true })
     maxAffordablePrice: number;
 
-    @Field()
+    @Field({ nullable: true })
     minLuxuryPrice: number;
 
-    @Field()
+    @Field({ nullable: true })
     maxBudgetPrice: number;
 
-    @Field()
+    @Field({ nullable: true })
     constructionStatusId: number;
 
-    @Field()
+    @Field({ nullable: true })
     suburb: Suburb;
 
-    @Field()
+    @Field({ nullable: true })
     suburbId: number;
 }
 
@@ -237,31 +237,31 @@ export class Properties {
     @Field({ nullable: true })
     projectId: number;
 
-    @Field()
+    @Field({ nullable: true })
     bedrooms: number;
 
-    @Field()
+    @Field({ nullable: true })
     bathrooms: number;
 
-    @Field()
+    @Field({ nullable: true })
     unitType: string;
 
-    @Field()
+    @Field({ nullable: true })
     unitName: string;
 
-    @Field()
+    @Field({ nullable: true })
     priceCurrency: string;
 
-    @Field()
+    @Field({ nullable: true })
     size: number;
 
-    @Field()
+    @Field({ nullable: true })
     measure: string;
 
-    @Field()
+    @Field({ nullable: true })
     URL: string;
 
-    @Field()
+    @Field({ nullable: true })
     isPropertySoldOut: boolean;
 
     @Field({ nullable: true })
@@ -270,215 +270,215 @@ export class Properties {
 
 @ObjectType()
 export class Project {
-    @Field()
+    @Field({ nullable: true })
     isHotProject: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isOldAgeCompatible: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isProjectServing: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     projectFocus: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     reraIdExpired: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     projectUnderInvestigation: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     hideBuilderName: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     reraRegistrationNumber: string;
 
-    @Field()
+    @Field({ nullable: true })
     isFeaturedOnHomePage: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isFeaturedOnCityPage: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isFeaturedOnLocalityPage: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     projectMainImageId: number;
 
-    @Field()
+    @Field({ nullable: true })
     isFeaturedOnMakaanIq: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isFeatured: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isProjectFeaturedBuy: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isProjectFeaturedRent: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     builderPackageMagicNumber: number;
 
-    @Field()
+    @Field({ nullable: true })
     authorized: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     localityId: number;
 
-    @Field()
+    @Field({ nullable: true })
     shouldDisplayPrice: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     locality: Locality;
 
-    @Field()
+    @Field({ nullable: true })
     builderId: number;
 
-    @Field()
+    @Field({ nullable: true })
     name: string;
 
-    @Field()
+    @Field({ nullable: true })
     projectTypeId: number;
 
-    @Field()
+    @Field({ nullable: true })
     launchDate: number;
 
-    @Field()
+    @Field({ nullable: true })
     address: string;
 
-    @Field()
+    @Field({ nullable: true })
     computedPriority: number;
 
-    @Field()
+    @Field({ nullable: true })
     assignedPriority: number;
 
-    @Field()
+    @Field({ nullable: true })
     assignedLocalityPriority: number;
 
-    @Field()
+    @Field({ nullable: true })
     assignedSuburbPriority: number;
 
-    @Field()
+    @Field({ nullable: true })
     possessionDate: number;
 
-    @Field()
+    @Field({ nullable: true })
     firstPhaseCompletionDate: number;
 
-    @Field()
+    @Field({ nullable: true })
     currentPhaseCompletionDate: number;
 
-    @Field()
+    @Field({ nullable: true })
     createdDate: number;
 
-    @Field()
+    @Field({ nullable: true })
     imageURL: string;
 
-    @Field()
+    @Field({ nullable: true })
     URL: string;
 
-    @Field()
+    @Field({ nullable: true })
     latitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     longitude: number;
 
-    @Field()
+    @Field({ nullable: true })
     forceResale: number;
 
-    @Field()
+    @Field({ nullable: true })
     minBedrooms: number;
 
-    @Field()
+    @Field({ nullable: true })
     maxBedrooms: number;
 
-    @Field()
+    @Field({ nullable: true })
     projectStatus: string;
 
-    @Field()
+    @Field({ nullable: true })
     isResale: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isPrimary: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     isSoldOut: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     totalUnits: number;
 
-    @Field()
+    @Field({ nullable: true })
     sizeInAcres: number;
 
-    @Field()
+    @Field({ nullable: true })
     propertySizeMeasure: string;
 
-    @Field()
+    @Field({ nullable: true })
     dominantUnitType: string;
 
     // TBD
-    @Field(() => [String])
+    @Field(() => [String], { nullable: true })
     propertyUnitTypesCommerical: [string];
 
-    @Field()
+    @Field({ nullable: true })
     localityLabelPriority: string;
 
-    @Field()
+    @Field({ nullable: true })
     suburbLabelPriority: string;
 
-    @Field()
+    @Field({ nullable: true })
     builderLabelPriority: string;
 
-    @Field()
+    @Field({ nullable: true })
     unitTypeString: string;
 
-    @Field(() => [String])
+    @Field(() => [String], { nullable: true })
     distinctBedrooms: string[];
 
-    @Field(() => [String])
+    @Field(() => [String], { nullable: true })
     distinctBedroomsFloat: string[];
 
-    @Field()
+    @Field({ nullable: true })
     imagesCount: number;
 
-    @Field()
+    @Field({ nullable: true })
     hasProjectOffer: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     livabilityScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     primaryScore: number;
 
-    @Field()
+    @Field({ nullable: true })
     projectLivabilityRank: number;
 
-    @Field()
+    @Field({ nullable: true })
     activeStatus: string;
 
-    @Field()
+    @Field({ nullable: true })
     has3DImages: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     resaleEnquiry: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     hasProjectInsightReport: boolean;
 
-    @Field()
+    @Field({ nullable: true })
     projectId: number;
 
     // TBD
     @Field(() => [Properties], { nullable: true })
     properties: [Properties];
 
-    @Field(() => [String])
+    @Field(() => [String], { nullable: true })
     propertyUnitTypes: [string];
 
-    @Field()
+    @Field({ nullable: true })
     mainImage: MainImage;
 
-    @Field()
+    @Field({ nullable: true })
     builder: Builder;
 }
