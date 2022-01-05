@@ -12,6 +12,6 @@ export class PtSearchResolver {
      */
     @Query(() => [Project], { name: 'projectListing', nullable: true })
     getAllListings(@Args() getListingArgs: GetListingArgs): any {
-        return this.ptSearchService.getAllListings(getListingArgs.cityLabel, getListingArgs.localityId);
+        return this.ptSearchService.getAllListings(getListingArgs);
     }
 }

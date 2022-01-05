@@ -6,15 +6,35 @@ const axios = require('axios');
 
 @Injectable()
 export class PtSearchService {
-    async getAllListings(cityLabel, localityId): Promise<[Project]> {
-        const apiUrl = apiMap.backend.ptPetra.projectListingApi.url;
-        const { domain } = apiMap.backend.ptPetra.projectListingApi;
-        const selector = JSON.stringify({
-            filters: { and: [{ equal: { cityLabel: [cityLabel] } }, { equal: { localityId: `${localityId}` } }] },
-            paging: { rows: 100, start: 0 },
-            sort: {},
+    async getAllListings(listingArgs): Promise<[Project]> {
+        console.log(listingArgs);
+        const { localityId, cityLabel, pagingStart, pagingRows, sortParams = [] } = listingArgs;
+        const { domain, url } = apiMap.backend.ptPetra.projectListingApi;
+        let pagingObj = {};
+        let sortObj = {};
+        console.log(pagingStart, pagingRows, cityLabel, localityId);
+        if (pagingStart !== undefined && pagingRows !== undefined) {
+            pagingObj = { paging: { start: pagingStart, rows: pagingRows } };
+        }
+        if (sortParams.length) {
+            sortObj = { sort: sortParams };
+        }
+        console.log(pagingObj);
+        let selector = JSON.stringify({
+            filters: { and: [{ equal: { cityLabel: [`${cityLabel}`] } }] },
+            ...pagingObj,
+            ...sortObj,
         });
-        const finalUrl = `http://${domain}${apiUrl}=${selector}`;
+        if (localityId) {
+            selector = JSON.stringify({
+                filters: {
+                    and: [{ equal: { cityLabel: [`${cityLabel}`] } }, { equal: { localityId: `${localityId}` } }],
+                },
+                ...pagingObj,
+                ...sortObj,
+            });
+        }
+        const finalUrl = `http://${domain}${url}=${selector}`;
         const response = await axios.get(finalUrl);
         console.log(response.data.data.items.length);
         console.log(finalUrl);
