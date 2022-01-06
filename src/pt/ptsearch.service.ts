@@ -8,8 +8,34 @@ const axios = require('axios');
 
 @Injectable()
 export class PtSearchService {
+    getFilterArray({ builderId, cityLabel, localityId }) {
+        let filterArr = [];
+        if (cityLabel !== undefined) {
+            filterArr.push({
+                equal: {
+                    cityLabel: [`${cityLabel}`],
+                },
+            });
+        }
+        if (localityId !== undefined) {
+            filterArr.push({
+                equal: {
+                    localityId: [`${localityId}`],
+                },
+            });
+        }
+        if (builderId !== undefined) {
+            filterArr.push({
+                equal: {
+                    builderId: [`${builderId}`],
+                },
+            });
+        }
+        return filterArr;
+    }
+
     async getAllListings(listingArgs, fieldMap): Promise<[Project]> {
-        const { localityId, cityLabel, pagingStart, pagingRows, sortParams = [] } = listingArgs;
+        const { localityId, cityLabel, builderId, pagingStart, pagingRows, sortParams = [] } = listingArgs;
         const { domain, url } = apiMap.backend.ptPetra.projectListingApi;
         let pagingObj = {};
         let sortObj = {};
@@ -23,21 +49,11 @@ export class PtSearchService {
             fields: parseFieldsFromObject({ object: fieldMap }),
         };
         let selector = JSON.stringify({
-            filters: { and: [{ equal: { cityLabel: [`${cityLabel}`] } }] },
+            filters: { and: this.getFilterArray({ cityLabel, localityId, builderId }) },
             ...pagingObj,
             ...sortObj,
             ...fieldObj,
         });
-        if (localityId) {
-            selector = JSON.stringify({
-                filters: {
-                    and: [{ equal: { cityLabel: [`${cityLabel}`] } }, { equal: { localityId: `${localityId}` } }],
-                },
-                ...pagingObj,
-                ...sortObj,
-                ...fieldObj,
-            });
-        }
         const finalUrl = `http://${domain}${url}=${selector}`;
         const response = await axios.get(finalUrl);
 

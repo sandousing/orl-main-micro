@@ -3,7 +3,7 @@ import { GraphQLJSONObject } from 'graphql-type-json';
 
 @ArgsType()
 export class GetListingArgs {
-    @Field()
+    @Field({ nullable: true })
     cityLabel: string;
 
     @Field({ nullable: true })
@@ -17,4 +17,7 @@ export class GetListingArgs {
 
     @Field(() => [GraphQLJSONObject], { nullable: true })
     sortParams: [object];
+
+    @Field({ nullable: true })
+    builderId: string;
 }
