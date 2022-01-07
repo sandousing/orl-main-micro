@@ -5,67 +5,59 @@
 version: '3.7'
 
 services:
-    templatebackend_housing:
-        container_name: templatebackend_housing
+    assets_orchestrator:
+        container_name: assets_orchestrator
         ports:
             - 3001:3001
         build:
             context: .
-            dockerfile: Dockerfile.dev
+            dockerfile: Dockerfile.assets
+        links:
+            - kafka
         networks:
             - backendnetwork
-        depends_on:
-            - redis
-            - mariadb
         env_file:
             - .env
-        volumes:
-            - type: bind
-              source: ./src
-              target: /app/src
-    redis:
-        container_name: redis_container
-        image: redis:5
-        volumes:
-            - type: volume
-              source: redis
-              target: /data
+
+    accounts_orchestrator:
+        container_name: accounts_orchestrator
+        ports:
+            - 3002:3002
+        build:
+            context: ../../orl-main-micro-micro-service
+            dockerfile: Dockerfile
         networks:
             - backendnetwork
-    mariadb:
-        container_name: mariadb
-        image: 'mariadb:10.3.16'
-        restart: always
+        env_file:
+            - ../../orl-main-micro-micro-service/.env
+
+    zookeeper:
+        image: bitnami/zookeeper:latest
+        container_name: zookeeper
+        networks:
+            - backendnetwork
         ports:
-            - 3306:3306
+            - 2181:2181
         environment:
-            - MYSQL_USER=root
-            - MYSQL_PASSWORD=root
-            - MYSQL_DATABASE=test
-            - MYSQL_ROOT_PASSWORD=root
-        networks:
-            - backendnetwork
-    nginx:
-        image: nginx:mainline-alpine
-        container_name: nginx
-        volumes:
-            - ./nginx.conf:/etc/nginx/nginx.conf
+            - ALLOW_ANONYMOUS_LOGIN=yes
+
+    kafka:
+        image: bitnami/kafka:latest
+        container_name: kafka
+        hostname: kafka
         networks:
             - backendnetwork
         ports:
-            - 80:80
+            - 9092:9092
+        environment:
+            - KAFKA_BROKER_ID=1
+            - KAFKA_LISTENERS=PLAINTEXT://:9092
+            - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+            - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+            - ALLOW_PLAINTEXT_LISTENER=yes
+            - KAFKA_ADVERTISED_HOST_NAME=kafka
         depends_on:
-            - templatebackend_housing
-    adminer:
-        image: adminer
-        restart: always
-        networks:
-            - backendnetwork
-        ports:
-            - 9090:8080
+            - zookeeper
 
 networks:
     backendnetwork:
-
-volumes:
-    redis:

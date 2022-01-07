@@ -1,0 +1,18 @@
+# This is a neststack backend template
+# This will serve all API endpoints
+# Using node:10 alpine as base image
+
+FROM node:12-alpine
+
+WORKDIR /app
+
+ADD package.json /app/package.json
+
+RUN yarn install
+
+ADD . /app
+
+EXPOSE 3001
+
+#start the service in dev mode
+CMD ["yarn","run","start:dev"]
